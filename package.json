@@ -1,0 +1,23 @@
+{
+  "name": "ontwikkelen",
+  "version": "0.0.1",
+  "description": "Simple server for social network",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+      "express": "~4.12.2",
+      "moment": "2.10.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crysnic/ontwikkelen"
+  },
+  "author": "Volodymyr Udalych",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Crysnic/ontwikkelen/issues"
+  },
+  "homepage": "https://github.com/Crysnic/ontwikkelen"
+}
