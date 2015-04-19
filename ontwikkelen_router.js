@@ -10,7 +10,8 @@ var options = {
 
 // для всех запросов
 router.use(function(req, res, next) {
-    console.log("Request '%s': %s",
+    console.log("%s '%s':\t%s",
+        req.ip,
         req.originalUrl,
         moment().format("YYYY-MM-DD HH:mm:ss"));  
     next();
@@ -24,6 +25,17 @@ router.get('/', function(req, res) {
 // страница регистрации
 router.get('/registration', function(req, res) {
     res.sendFile("/registration.html", options, resErrorHandler());
+});
+
+// POST запросы
+router.post('/login', function(req, res) {
+    console.log(req.body);
+    res.end("OK");
+});
+
+router.post('/registration', function(req, res) {
+    console.log(req.body);
+    res.end("OK");
 });
 
 // статика

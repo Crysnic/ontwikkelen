@@ -6,10 +6,7 @@ window.addEventListener("load", function() {
   passwd.type = 'text';
   var registration = document.getElementById('registration');
 
-  form.onsubmit = function() {
-    return false;
-  };
-
+  // Стиль формы
   login.onfocus = function() {
     if (this.value == "Логин") this.value = '';
     this.style.borderColor = "rgba(0,191,255,0.5)";
@@ -43,5 +40,6 @@ window.addEventListener("load", function() {
   registration.onblur = function() {
     this.style.color = "gray";
   };
+  
   
 });
