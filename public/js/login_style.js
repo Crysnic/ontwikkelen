@@ -1,4 +1,4 @@
-window.onload = function() {
+window.addEventListener("load", function() {
   
   var form = document.forms[0];
   var login = form.login;
@@ -44,4 +44,4 @@ window.onload = function() {
     this.style.color = "gray";
   };
   
-}
+});

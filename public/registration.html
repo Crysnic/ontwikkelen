@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/registration.css">
+	<script src="js/registration.js"></script>
+	<title>friendsbook</title>
+</head>
+<body>
+	<div class="reg-form">
+		<h1>Регистрация</h1>
+		<form>
+		<p><label>Имя<input type="text" name="name" pattern="^[A-Za-zА-Яа-яЁё]+$" required><span></span><label></p>
+		<p><label>Фамилия<input type="text" name="surname" pattern="^[A-Za-zА-Яа-яЁё]+$" required><span></span></label></p>
+		<p><label>Дата рождения<input type="date" name="date"></label></p>
+		<p><label>Город<input type="text" name="city" pattern="^[A-Za-zА-Яа-яЁё]+$" required><span></span></label></p></br>
+		<p><label>E-mail<input type="email" name="email" required><span></span></label></p>
+		<p><label>Пароль<input type="password" name="passw" required><span></span></label></p>
+		<p><label>Повторите пароль<input type="password" name="confirm_passw" required><span></span></label></p>
+			<input type="submit" id="enter" value="Зарегистрироваться">
+		</form>
+
+	</div>
+</body>
+</html>

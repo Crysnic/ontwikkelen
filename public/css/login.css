@@ -1,0 +1,97 @@
+input, a {
+	border: none;
+	font-family: inherit;
+	margin: 0;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.login-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 40%;
+    min-width: 450px;
+    height: 40%;
+    min-height: 340px;
+    background-color: white;
+    text-align: center;
+    color: grey;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.login-form h1 {
+  margin: 0;
+  border-radius: 5px 5px 0 0;
+  background-color: #282830;
+  color: #fff;
+  font-size: 18px;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login-form input {
+  font-size: 20px;
+  color: grey;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  padding: 12px 10px;
+  width: 60%;
+  height: 28px;
+  text-align : center;
+  font-size: 16px;
+}
+
+.login-form input[name="login"] {
+  margin-top: 50px;
+  border-radius: 3px 3px 0 0;
+}
+
+.login-form input[name="passwd"] {
+  border-radius: 0px 0px 3px 3px;
+}
+
+#enter {
+  
+  background: #1dabb8;
+  border-radius: 3px;
+  color: #fff;
+  float: right;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-right: 18%;
+  padding: 14px 25px;
+  cursor: pointer;
+}
+
+#enter:hover { background: #198d98; }
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.clearfix:hover { background: #198d98; }
+
+.clearfix {
+  font-size: 20px; 
+  background: #1dabb8;
+  border-radius: 3px;
+  color: #fff;
+  float: right;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-right: 2%;
+  padding: 14px 25px;
+  cursor: pointer;
+}
