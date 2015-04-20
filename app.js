@@ -1,13 +1,28 @@
 var express = require("express");
 var bodyParser = require('body-parser');
 var path = require("path");
+var favicon = require('serve-favicon');
 
-var route = require("./ontwikkelen_router")
+var routes = require("./routes/index");
+var mainRoute = require("./ontwikkelen_router")
 
 var app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'templates'));
+app.set('view engine', 'jade');
+
 app.use(bodyParser.json());
-app.use('/', route);
+app.use( favicon(path.join(__dirname, 'public', 'favicon.ico')) );
+// test jane
+app.use('/test', routes);
+app.use('/', mainRoute);
+
+
+app.use(function(err, req, res, next) {
+    console.log(err.stack);
+    res.status(500).send("Server error");
+});
 
 // Запуск сервера
 var server = app.listen(3000, function() {

@@ -10,10 +10,12 @@ var options = {
 
 // для всех запросов
 router.use(function(req, res, next) {
-    console.log("%s '%s':\t%s",
+    console.log("%s '%s' %s '%s'",
+        req.method,
         req.ip,
-        req.originalUrl,
-        moment().format("YYYY-MM-DD HH:mm:ss"));  
+        moment().format("YYYY-MM-DD HH:mm:ss"),
+        req.originalUrl
+        );  
     next();
 });
 
