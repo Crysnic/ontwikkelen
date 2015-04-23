@@ -16,7 +16,7 @@ window.addEventListener("load", function() {
         xhr.onreadystatechange = function() {
             if (this.readyState != 4) return;
 
-            alert( this.responseText );
+            document.write( this.responseText );
         }
         
         xhr.send(data);

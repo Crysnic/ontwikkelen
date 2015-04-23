@@ -1,17 +1,6 @@
 doctype html
 html
-head
-  meta(charset='utf-8')
-  link(rel='stylesheet', href='css/style.css')
-  link(rel='stylesheet', href='css/login.css')
-  script(src='js/login.js')
-  script(src='js/login_style.js')
-  title= title
-body
-  .login-form
-    h1 Здравствуйте, вас приветствует мини-социальная сеть FriendsBook.dp.ua
-    form
-        input(name='login', tabindex='1', type='text', value='Логин')
-        input(name='passwd', tabindex='2', type='password', value='Пароль')
-        input#enter(type='submit', value='Вход')
-        a.clearfix(href='/registration') Регистрация
+  if widget == 'login'
+    include login
+  else if widget == 'user'
+    include user

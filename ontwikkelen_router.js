@@ -20,8 +20,10 @@ router.use(function(req, res, next) {
 });
 
 // домашняя страница
-router.get('/', function(req, res) {
-    res.sendFile("/index.html", options, resErrorHandler());
+router.get('/', function(req, res, next) {
+    res.render('index', {title: 'friendsbook',
+                         widget: 'login'
+    });
 });
 
 // страница регистрации
@@ -32,7 +34,9 @@ router.get('/registration', function(req, res) {
 // POST запросы
 router.post('/login', function(req, res) {
     console.log(req.body);
-    res.end("OK");
+    res.render('index', {title: req.body.login,
+                         widget: 'user'
+    });
 });
 
 router.post('/registration', function(req, res) {
