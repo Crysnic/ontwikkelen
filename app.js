@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require("path");
 var favicon = require('serve-favicon');
 
-var routes = require("./routes/index");
+var test = require("./routes/index");
 var mainRoute = require("./routes/ontwikkelen_router")
 
 var app = express();
@@ -15,7 +15,7 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use( favicon(path.join(__dirname, 'public', 'favicon.ico')) );
 // test jane
-app.use('/test', routes);
+app.use('/test', test);
 app.use('/', mainRoute);
 
 
