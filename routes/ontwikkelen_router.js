@@ -1,11 +1,12 @@
 var express = require("express");
 var moment = require("moment");
 var path = require("path");
+var DBoperation = require("../DBoperations");
 
 var router = express.Router();
 
 var options = {
-    root: path.join(__dirname, "public")
+    root: path.join(__dirname, "../public")
 };
 
 // для всех запросов
@@ -21,8 +22,8 @@ router.use(function(req, res, next) {
 
 // домашняя страница
 router.get('/', function(req, res, next) {
-    res.render('index', {title: 'friendsbook',
-                         widget: 'login'
+    res.render('login', {
+        title: 'friendsbook'
     });
 });
 
@@ -33,15 +34,11 @@ router.get('/registration', function(req, res) {
 
 // POST запросы
 router.post('/login', function(req, res) {
-    console.log(req.body);
-    res.render('index', {title: req.body.login,
-                         widget: 'user'
-    });
+    DBoperation.checkUser(req.body, res);
 });
 
-router.post('/registration', function(req, res) {
-    console.log(req.body);
-    res.end("OK");
+router.post('/registration', function(req, res) {   
+    DBoperation.addUser(req.body, res);
 });
 
 // статика

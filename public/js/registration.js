@@ -26,6 +26,7 @@ window.addEventListener("load", function() {
     function getRegData() {
         
       return JSON.stringify({
+        login: form.login.value,
         name: form.name.value,
         surname: form.surname.value,
         date: form.date.value,

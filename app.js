@@ -4,7 +4,7 @@ var path = require("path");
 var favicon = require('serve-favicon');
 
 var routes = require("./routes/index");
-var mainRoute = require("./ontwikkelen_router")
+var mainRoute = require("./routes/ontwikkelen_router")
 
 var app = express();
 
