@@ -1,8 +1,16 @@
 window.addEventListener("load", function() {
     
     var form = document.forms[0];
+    var passw = form.passw;
+    var confirm_passw = form.confirm_passw;
 
     form.onsubmit = function() {
+        
+        if (confirm_passw.value != passw.value) {
+            alert("Пароль не совпадает");
+            return false;
+        }
+        
         var data = getRegData();
         
         if (data) {
@@ -22,6 +30,11 @@ window.addEventListener("load", function() {
 
         return false;
     };
+    
+    confirm_passw.onblur = function() {
+        if (this.value != passw.value)
+            alert("Пароль не совпадает");
+    }
   
     function getRegData() {
         
