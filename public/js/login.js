@@ -15,7 +15,12 @@ window.addEventListener("load", function() {
         
         xhr.onreadystatechange = function() {
             if (this.readyState != 4) return;
-
+            
+            if (xhr.status == 401) {
+                alert("Ошибка логина или пароля");
+                return false;
+            }
+            
             document.write( this.responseText );
         }
         
@@ -32,7 +37,8 @@ window.addEventListener("load", function() {
       if (login.value == "Логин" || !login.value) {
           alert("Введите Логин");
           return false;
-      } else if (passwd.value == "Пароль" || !login.value) {
+      }
+      if (passwd.value == "Пароль" || !login.value) {
           alert("Введите Пароль");
           return false;
       }

@@ -58,6 +58,10 @@ input:invalid + span::after {
   color: red;
 }
 
+input[name="confirm_passw"] + span::after {
+  content: '';
+}
+
 #enter {
   background: #1dabb8;
   border-radius: 3px;
@@ -72,3 +76,18 @@ input:invalid + span::after {
 }
 
 #enter:hover { background: #198d98;}
+
+/* Классы для проверки подтверждения пароля*/
+.reg-form .passw-invalid + span::after {
+  content: '✗';
+  position: absolute;
+  left: 72%;
+  color: red;
+}
+
+.reg-form .passw-valid  + span::after {
+  content: '✓';
+  position: absolute;
+  left: 72%;
+  color: green;
+}

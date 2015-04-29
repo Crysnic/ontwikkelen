@@ -6,8 +6,7 @@ window.addEventListener("load", function() {
 
     form.onsubmit = function() {
         
-        if (confirm_passw.value != passw.value) {
-            alert("Пароль не совпадает");
+        if (confirm_passw.value != passw.value || confirm_passw.value == '') {
             return false;
         }
         
@@ -31,9 +30,15 @@ window.addEventListener("load", function() {
         return false;
     };
     
-    confirm_passw.onblur = function() {
-        if (this.value != passw.value)
-            alert("Пароль не совпадает");
+    // проверка на совпадение паролей
+    confirm_passw.onkeyup = function() {
+        if (this.value != passw.value || this.value == '') {
+            this.classList.remove('passw-valid');
+            this.classList.add('passw-invalid');
+        } else {
+            this.classList.remove('passw-invalid');
+            this.classList.add('passw-valid');
+        }
     }
   
     function getRegData() {

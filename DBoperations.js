@@ -44,9 +44,7 @@ function checkUser(userObj, res) {
     findUser(userObj.login, userObj.passwd, function(data) {
         if (data.length == 0) {
             // ответ сервера при отсутствии пользователя
-            res.render('login', {
-                title: "Error"
-            });
+            res.status(401).send("Ошибка логина или пароля");
         } else {
             // ответ сервера если всё правильно
             res.render('user', {
