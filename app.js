@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require("path");
 var favicon = require('serve-favicon');
 
-var test = require("./routes/index");
+var test = require("./routes/test");
 var mainRoute = require("./routes/ontwikkelen_router")
 
 var app = express();
