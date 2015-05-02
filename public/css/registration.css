@@ -37,7 +37,7 @@ input {
 }
 
 .reg-form input {
-	margin: auto;
+  margin: auto;
   position: absolute;
   left: 50%;
   border: 1px solid #dcdcdc;
@@ -90,4 +90,14 @@ input[name="confirm_passw"] + span::after {
   position: absolute;
   left: 72%;
   color: green;
+}
+
+/* Класс для подсказки */
+.reg-form input:invalid + .tip::after {
+  content: '';
+}
+.reg-form input:invalid + .tip {
+  position: absolute;
+  left: 72%;
+  color: gray;
 }

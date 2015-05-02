@@ -29,17 +29,6 @@ window.addEventListener("load", function() {
 
         return false;
     };
-    
-    // проверка на совпадение паролей
-    confirm_passw.onkeyup = function() {
-        if (this.value != passw.value || this.value == '') {
-            this.classList.remove('passw-valid');
-            this.classList.add('passw-invalid');
-        } else {
-            this.classList.remove('passw-invalid');
-            this.classList.add('passw-valid');
-        }
-    }
   
     function getRegData() {
         

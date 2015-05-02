@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/registration.css">
+  <script src="js/registration-style.js"></script>
 	<script src="js/registration.js"></script>
 	<title>friendsbook</title>
 </head>
@@ -11,15 +12,15 @@
 	<div class="reg-form">
 		<h1>Регистрация</h1>
 		<form>
-    <p><label>Login<input type="text" name="login" pattern="^[A-Za-z0-9]{4,8}$" required><span></span><label></p>
-		<p><label>Имя<input type="text" name="name" pattern="^[A-Za-zА-Яа-яЁё]{3,12}$" required><span></span><label></p>
-		<p><label>Фамилия<input type="text" name="surname" pattern="^[A-Za-zА-Яа-яЁё]{3,12}$" required><span></span></label></p>
-		<p><label>Дата рождения<input type="date" name="date"></label></p>
-		<p><label>Город<input type="text" name="city" pattern="^[A-Za-zА-Яа-яЁё]{3,20}$" required><span></span></label></p></br>
-		<p><label>E-mail<input type="email" name="email" required><span></span></label></p>
-		<p><label>Пароль<input type="password" name="passw" pattern="^[A-Za-zА-Я0-9]{6,10}$" required><span></span></label></p>
-		<p><label>Повторите пароль<input type="password" name="confirm_passw"><span></span></label></p>
-			<input type="submit" id="enter" value="Зарегистрироваться">
+      <p><label>Login<input name="login" pattern="^[A-Za-z0-9]{4,10}$" required><span></span><label></p>
+      <p><label>Имя<input name="name" pattern="^[A-Za-zА-Яа-яЁё]{3,12}$" required><span></span><label></p>
+      <p><label>Фамилия<input name="surname" pattern="^[A-Za-zА-Яа-яЁё]{3,12}$" required><span></span></label></p>
+      <p><label>Дата рождения<input name="date" pattern="^\d{2}[ \-.]{1}\d{2}[ \-.]{1}\d{4}$" required><span></span></label></p>
+      <p><label>Город<input name="city" pattern="^[A-Za-zА-Яа-яЁё]{3,20}$" required><span></span></label></p></br>
+      <p><label>E-mail<input type="email" name="email" required><span></span></label></p>
+      <p><label>Пароль<input type="password" name="passw" pattern="^[A-Za-zА-Я0-9]{6,10}$" required><span></span></label></p>
+      <p><label>Повторите пароль<input type="password" name="confirm_passw"><span></span></label></p>
+      <input type="submit" id="enter" value="Зарегистрироваться">
 		</form>
 
 	</div>

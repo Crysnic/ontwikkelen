@@ -1,7 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var path = require("path");
-var DBoperation = require("../DBoperations");
+var DBoperation = require("DBoperations");
 
 var router = express.Router();
 

@@ -4,19 +4,23 @@ html
     meta(charset='utf-8')
     link(rel='stylesheet', href='css/style.css')
     link(rel='stylesheet', href='css/user.css')
-    title= title
+    title= user.login
   body
     .user
       h1.mainheader ontWiKKelen
       .bodycontainer
-        p.userName= name + " " + surname
-        table
-          tr
-            th День рождения
-            td= birthdate
-          tr
-            th Место проживания
-            td= city
-          tr
-            th E-mail
-            td= email
+        .avatar
+          - var userAvatar= user.avatar || "/images/images.png"
+            img(src="#{userAvatar}" alt='#{user.login}')
+        .userdata
+          p.userName= user.name + " " + user.surname
+          table
+            tr
+              th День рождения
+              td= user.date
+            tr
+              th Место проживания
+              td= user.city
+            tr
+              th E-mail
+              td= user.email
