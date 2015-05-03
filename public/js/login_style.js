@@ -31,15 +31,6 @@ window.addEventListener("load", function() {
       this.type = "text";
     }
     this.style.borderColor = "#dcdcdc";
-  };
-  
-  registration.onfocus = function() {
-    this.style.color = "#1dabb8";
-  };
-  
-  registration.onblur = function() {
-    this.style.color = "gray";
-  };
-  
+  }; 
   
 });

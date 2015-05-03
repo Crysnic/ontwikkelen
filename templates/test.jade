@@ -4,6 +4,7 @@ html
     meta(charset='utf-8')
     link(rel='stylesheet', href='css/style.css')
     link(rel='stylesheet', href='css/user.css')
+    script(src='js/user.js')
     title= user.login
   body
     .user
@@ -12,6 +13,10 @@ html
         .avatar
           - var userAvatar= user.avatar || "/images/images.png"
             img(src="#{userAvatar}" alt='#{user.login}')
+          form.choosePicture(method="post" action="/user_avatar" enctype="multipart/form-data")
+            input(type="file" name=user.login+"_photo" accept="image/*", required)
+            p
+              input(type="submit" value="Отправить")
         .userdata
           p.userName= user.name + " " + user.surname
           table

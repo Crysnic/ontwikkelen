@@ -1,18 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var DBoperation = require("DBoperations");
 
 /* GET test page. */
 router.get('/', function(req, res, next) {
-  res.render('test', {
-    user: {
-        login: "Test",
-        name: "Василий",
-        surname: "Иванов",
-        date: "23-08-1985",
-        city: "Одесса",
-        email: "vasil@example.com"
-    }
-  });
+    DBoperation.getUserPage({login: "Test"}, res);
 });
 
 module.exports = router;

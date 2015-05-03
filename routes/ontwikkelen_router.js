@@ -23,7 +23,7 @@ router.use(function(req, res, next) {
 // домашняя страница
 router.get('/', function(req, res, next) {
     res.render('login', {
-        title: 'friendsbook'
+        title: 'OntwiKKelen'
     });
 });
 

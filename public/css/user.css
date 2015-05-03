@@ -15,18 +15,30 @@
 
 .userdata {
   margin: 0;
-  padding-left: 50px;
+  padding-left: 40px;
 }
 
 .avatar {
   margin: 0 25px 20px 25px;
-  padding-top: 15px; 
-}
-
-.avatar img {
   width: 350px;
-  height: 350px;
+  padding-top: 15px;
+  padding-left: 20px;
+}
+.avatar img {
+  margin-bottom: 5px;
+  width: 250px;
+  height: 250px;
   border: 1px solid gray;
+}
+.avatar img:hover {
+  border: 1px solid darkseagreen;
+  cursor: pointer;
+}
+.avatar p {
+  margin: 5px 0;
+}
+.choosePicture {
+  display: none;
 }
 
 .userName {
