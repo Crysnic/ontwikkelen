@@ -1,3 +1,4 @@
 node_modules/*
 !node_modules/DBoperations.js
 nbproject
+public/images/avatars/
