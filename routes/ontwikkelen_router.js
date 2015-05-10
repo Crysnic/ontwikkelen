@@ -11,6 +11,7 @@ var options = {
 
 // для всех запросов
 router.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-cache');
     console.log("%s '%s' %s '%s'",
         req.method,
         req.ip,
@@ -34,6 +35,7 @@ router.get('/registration', function(req, res) {
 
 // POST запросы
 router.post('/login', function(req, res) {
+    res.set("Content-Type", "text/html; charset=utf-8");
     DBoperation.checkUser(req.body, res);
 });
 

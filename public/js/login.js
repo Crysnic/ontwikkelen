@@ -21,7 +21,8 @@ window.addEventListener("load", function() {
                 return false;
             }
             
-            document.write( this.responseText );
+            document.documentElement.innerHTML = this.responseText;
+            //document.write( this.responseText );
         }
         
         xhr.send(data);
