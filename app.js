@@ -17,8 +17,9 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use( favicon(path.join(__dirname, 'public', 'favicon.ico')) );
 
-var done = false;
+var done = null;
 
+// if server get a picture
 app.use(multer({ dest: './public/images/avatars/',
     
     rename: function (fieldname, filename) {
@@ -31,14 +32,14 @@ app.use(multer({ dest: './public/images/avatars/',
         var avatarPath = file.path.match(/\/images.*/)[0];
         console.log(file.fieldname + ' uploaded to  ' + avatarPath);
         DBoperation.addUserAvatar(file.fieldname.match(/[a-zA-Z]+/)[0], avatarPath);
-        done=true;
+        done = avatarPath;
     }
     
 }));
 
 app.post('/user_avatar', function(req, res) {
-    if(done == true){
-        res.send("Page is updated");
+    if(done !== null){
+        res.send(done);
     }
 });
 

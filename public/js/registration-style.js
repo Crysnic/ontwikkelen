@@ -1,7 +1,13 @@
 window.addEventListener("load", function() {
+    var header = document.getElementsByTagName("h1")[0];
     var form = document.forms[0];
     var passw = form.passw;
     var confirm_passw = form.confirm_passw;
+    
+    // header
+    header.onclick = function() {
+        window.location.assign("/");
+    }
     
     // проверка на совпадение паролей
     confirm_passw.onkeyup = function() {

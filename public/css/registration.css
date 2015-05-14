@@ -30,6 +30,10 @@ input {
   padding: 20px;
   text-align: center;
   text-transform: uppercase;
+  cursor: pointer;
+}
+.reg-form h1:hover {
+  color: darkseagreen;
 }
 
 .reg-form p {

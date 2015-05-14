@@ -6,7 +6,7 @@ window.addEventListener("load", function() {
   passwd.type = 'text';
   var registration = document.getElementById('registration');
 
-  // Стиль формы
+  // Form styles
   login.onfocus = function() {
     if (this.value == "Логин") this.value = '';
     this.style.borderColor = "rgba(0,191,255,0.5)";

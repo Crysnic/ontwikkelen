@@ -15,7 +15,8 @@
 
 .userdata {
   margin: 0;
-  padding-left: 40px;
+  padding-left: 50px;
+  padding-bottom: 50px;
 }
 
 .avatar {
@@ -26,7 +27,7 @@
 }
 .avatar img {
   margin-bottom: 5px;
-  width: 250px;
+  width: 300px;
   height: 250px;
   border: 1px solid gray;
 }

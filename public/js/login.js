@@ -22,7 +22,12 @@ window.addEventListener("load", function() {
             }
             
             document.documentElement.innerHTML = this.responseText;
-            //document.write( this.responseText );
+            
+            // Начинаем работать с полученной страницей
+            var script = document.createElement('script');
+            script.src = "/js/user.js";
+
+            document.body.appendChild(script);
         }
         
         xhr.send(data);
