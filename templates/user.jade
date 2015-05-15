@@ -7,12 +7,17 @@ html
     title= user.login
   body
     .user
-      h1.mainheader ontWiKKelen
+      h1.mainheader ontWiKKelen      
       .bodycontainer
+        .chat
+          textarea#subscribe(rows="35", cols="45")
+          form(name="publish")
+            input(type="text", name="message")
+            input(type="submit", value="Отправить")
         .avatar
           - var userAvatar= user.avatar || "/images/images.png"
             img(src="#{userAvatar}" alt='#{user.login}')
-          form.choosePicture
+          form.choosePicture(name="chooseAvatar")
             input(type="file" name=user.login+"_photo" accept="image/*", required)
             p
               input(type="submit" value="Отправить")

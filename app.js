@@ -5,10 +5,10 @@ var multer  = require('multer');
 var favicon = require('serve-favicon');
 var DBoperation = require("DBoperations");
 
-var test = require("./routes/test_router");
-var mainRoute = require("./routes/ontwikkelen_router")
+var mainRoute = require("./routes/ontwikkelen_router");
 
 var app = express();
+var expressWs = require('express-ws')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'templates'));
@@ -43,10 +43,32 @@ app.post('/user_avatar', function(req, res) {
     }
 });
 
-// test jane
-app.use('/test', test);
 app.use('/', mainRoute);
 
+// подключенные клиенты
+var clients = {};
+
+// работа с сокетом
+app.ws('/', function(ws, req) {
+    
+    var id = Math.random();
+    clients[id] = ws;
+    console.log("новое соединение " + id);
+    
+    ws.on('message', function incoming(message) {
+        var mesOBJ = JSON.parse(message);
+        console.log('%s: %s', mesOBJ.from, mesOBJ.message);
+        
+        for (var key in clients) {
+            clients[key].send(message);
+        }
+    });
+});
+
+// Если нет страницы
+/*app.use(function(req, res, next) {
+    res.status(404).send("Page not found :(");
+});*/
 
 app.use(function(err, req, res, next) {
     console.log(err.stack);

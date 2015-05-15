@@ -46,11 +46,6 @@ router.post('/registration', function(req, res) {
 // статика
 router.use( express.static(options.root) );
 
-// Если нет страницы
-router.use(function(req, res) {
-    res.status(404).send("Page not found :(");
-});
-
 module.exports = router;
 
 

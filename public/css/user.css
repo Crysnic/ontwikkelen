@@ -13,10 +13,18 @@
   background-color: white;
 }
 
+.chat {
+  float: right;
+  margin-top: 15px;
+  margin-right: 50px;
+  width: 570px;
+  text-align: left;
+}
+
 .userdata {
   margin: 0;
   padding-left: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 150px;
 }
 
 .avatar {
