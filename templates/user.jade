@@ -10,9 +10,9 @@ html
       h1.mainheader ontWiKKelen      
       .bodycontainer
         .chat
-          textarea#subscribe(rows="35", cols="45")
+          textarea#subscribe(rows="35", cols="45", readonly)
           form(name="publish")
-            input(type="text", name="message")
+            input(type="text", name="message", autocomplete="off")
             input(type="submit", value="Отправить")
         .avatar
           - var userAvatar= user.avatar || "/images/images.png"

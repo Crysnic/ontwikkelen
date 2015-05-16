@@ -20,7 +20,7 @@ form.onsubmit = function() {
     return false;
 }
 
-var socket = new WebSocket("ws://192.168.0.100:3000");
+var socket = new WebSocket("ws://127.0.0.1:3000");
     
 document.forms.publish.onsubmit = function() {
     

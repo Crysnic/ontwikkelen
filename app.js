@@ -63,6 +63,11 @@ app.ws('/', function(ws, req) {
             clients[key].send(message);
         }
     });
+    
+    ws.on('close', function() {
+        console.log('соединение закрыто ' + id);
+        delete clients[id];
+    });
 });
 
 // Если нет страницы
