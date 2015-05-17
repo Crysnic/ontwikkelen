@@ -1,25 +1,13 @@
 var express = require("express");
 var moment = require("moment");
 var path = require("path");
-var DBoperation = require("DBoperations");
+var DBoperation = require("../libs/DBoperations");
 
 var router = express.Router();
 
 var options = {
     root: path.join(__dirname, "../public")
 };
-
-// для всех запросов
-router.use(function(req, res, next) {
-    res.set('Cache-Control', 'no-cache');
-    console.log("%s '%s' %s '%s'",
-        req.method,
-        req.ip,
-        moment().format("YYYY-MM-DD HH:mm:ss"),
-        req.originalUrl
-        );  
-    next();
-});
 
 // домашняя страница
 router.get('/', function(req, res, next) {

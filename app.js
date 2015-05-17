@@ -1,9 +1,11 @@
 var express = require("express");
 var bodyParser = require('body-parser');
+var logger = require('morgan');
 var path = require("path");
 var multer  = require('multer');
 var favicon = require('serve-favicon');
-var DBoperation = require("DBoperations");
+var config = require('./config');
+var DBoperation = require("./libs/DBoperations");
 
 var mainRoute = require("./routes/ontwikkelen_router");
 
@@ -14,8 +16,11 @@ var expressWs = require('express-ws')(app);
 app.set('views', path.join(__dirname, 'templates'));
 app.set('view engine', 'jade');
 
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use( favicon(path.join(__dirname, 'public', 'favicon.ico')) );
+
+app.use('/', mainRoute);
 
 var done = null;
 
@@ -42,8 +47,6 @@ app.post('/user_avatar', function(req, res) {
         res.send(done);
     }
 });
-
-app.use('/', mainRoute);
 
 // подключенные клиенты
 var clients = {};
@@ -81,10 +84,10 @@ app.use(function(err, req, res, next) {
 });
 
 // Запуск сервера
-var server = app.listen(3000, function() {
+var server = app.listen(config.get('port'), function() {
     var address = server.address().address;
     var port = server.address().port;
     address = (address == "::") ? "127.0.0.1" : address;
     
-    console.log("Server start on http://%s:%s\n", address, port);
+    console.log("\nServer starts on http://%s:%s\n", address, port);
 });
