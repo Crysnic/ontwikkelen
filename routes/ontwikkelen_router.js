@@ -1,5 +1,4 @@
 var express = require("express");
-var moment = require("moment");
 var path = require("path");
 var DBoperation = require("../libs/DBoperations");
 

@@ -21,19 +21,24 @@ form.onsubmit = function() {
 }
 
 var socket = new WebSocket("ws://127.0.0.1:3000");
-    
-document.forms.publish.onsubmit = function() {
-    
+
+$("#sendMessage textarea").focus();
+  
+$("#sendMessage").submit(function() {   
     var outgoingMessage = this.message.value;
+    
     if (outgoingMessage) {
         this.message.value = '';
         socket.send(JSON.stringify({
-            "from": document.getElementsByTagName("title")[0].innerHTML,
+            "from": $("title").text(),
             "message": outgoingMessage
         }));
+        
+        $("#sendMessage textarea").focus();
     }
+    
     return false;
-}
+  });
 
 socket.onmessage = function (event) {
     if (isJson(event.data)) {
@@ -42,10 +47,13 @@ socket.onmessage = function (event) {
     }
 };
 
-// показать сообщение в div#subscribe
+// показать сообщение
 function showMessage(from, message) {
-  document.getElementById('subscribe').value += 
-                from + ":  " + message + "\n";
+  var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
+      append("<td>"+message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{22}/g, "$& ")+"</td>");
+    $("#chatData table").append(messageElem);
+    $("#chatData")[0].scrollTop =
+                $("#chatData")[0].scrollHeight;
 }
 
 // press on a avatar
