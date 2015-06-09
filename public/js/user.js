@@ -1,8 +1,9 @@
-var form = document.forms.chooseAvatar;
-var avatarButton = document.getElementsByClassName('avatar')[0];
+var socket = new WebSocket("ws://127.0.0.1:3000");
+
+$("#sendMessage textarea").focus();
 
 // send a picture on server
-form.onsubmit = function() {
+$("form[name='chooseAvatar']").submit(function() {
     var formData = new FormData(form);
     
     var xhr = new XMLHttpRequest();
@@ -18,12 +19,15 @@ form.onsubmit = function() {
     
     xhr.send(formData);
     return false;
-}
+});
 
-var socket = new WebSocket("ws://127.0.0.1:3000");
+// press on a avatar
+$(".avatar").click(function(event) {
+    if (event.target.tagName === "IMG")
+        $("form[name='chooseAvatar']").toggleClass('choosePicture');
+});
 
-$("#sendMessage textarea").focus();
-  
+// chat
 $("#sendMessage").submit(function() {   
     var outgoingMessage = this.message.value;
     
@@ -47,7 +51,8 @@ socket.onmessage = function (event) {
     }
 };
 
-// показать сообщение
+
+//-- Internal functions --------------------------------------------------------
 function showMessage(from, message) {
   var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
       append("<td>"+message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{22}/g, "$& ")+"</td>");
@@ -56,13 +61,6 @@ function showMessage(from, message) {
                 $("#chatData")[0].scrollHeight;
 }
 
-// press on a avatar
-avatarButton.onclick = function(event) {
-    if (event.target.tagName === "IMG")
-        form.classList.toggle('choosePicture');
-};
-
-// Internal functions
 function isJson(str) {
     try {
         JSON.parse(str);

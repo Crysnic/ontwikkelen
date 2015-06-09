@@ -1,4 +1,4 @@
-window.addEventListener("load", function() {
+$(function() {
     
     var form = document.forms[0];
     var passw = form.passw;

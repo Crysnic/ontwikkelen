@@ -1,34 +1,38 @@
-window.addEventListener("load", function() {
+$(function() {
     var header = document.getElementsByTagName("h1")[0];
     var form = document.forms[0];
     var passw = form.passw;
     var confirm_passw = form.confirm_passw;
     
     // header
-    header.onclick = function() {
+    $("#header").click(function() {
         window.location.assign("/");
-    }
+    });
     
     // проверка на совпадение паролей
-    confirm_passw.onkeyup = function() {
-        if (this.value != passw.value || this.value == '') {
-            this.classList.remove('passw-valid');
-            this.classList.add('passw-invalid');
+    $("[name='confirm_passw']").keyup(function() {
+        if (this.value != $("[name='passw']").val() || this.value == '') {
+            $("[name='confirm_passw']")
+                .removeClass('passw-valid')
+                .addClass('passw-invalid');
         } else {
-            this.classList.remove('passw-invalid');
-            this.classList.add('passw-valid');
+            $("[name='confirm_passw']")
+                .removeClass('passw-invalid')
+                .addClass('passw-valid');
         };
-    }
+    });
     
-    passw.onkeyup = function() {
-        if (this.value != confirm_passw.value || this.value == '') {
-            confirm_passw.classList.remove('passw-valid');
-            confirm_passw.classList.add('passw-invalid');
+    $("[name='passw']").keyup(function() {
+        if (this.value != $("[name='confirm_passw']").val() || this.value=='') {
+            $("[name='confirm_passw']")
+                .removeClass('passw-valid')
+                .addClass('passw-invalid');
         } else {
-            confirm_passw.classList.remove('passw-invalid');
-            confirm_passw.classList.add('passw-valid');
+            $("[name='confirm_passw']")
+                .removeClass('passw-invalid')
+                .addClass('passw-valid');
         };
-    }
+    });
 
     // Подсказки для элементов формы
     makeTipFor(form.login, /^[A-Za-z0-9]{4,10}$/,
@@ -52,25 +56,24 @@ window.addEventListener("load", function() {
 
 // Internal functions
 function makeTipFor(elem, regExp, tip) {
-    elem.onfocus = function () {
-        if (regExp.test(this.value)) return;
+    $(elem)
+        .focus(function () {
+            if (regExp.test(this.value)) return;
 
-        this.nextElementSibling.classList.add("tip");
-        this.nextElementSibling.innerHTML = tip;
-    };
-
-    elem.oninput =function() {
-        if (regExp.test(this.value)) {
-            this.nextElementSibling.classList.remove("tip");
-            this.nextElementSibling.innerHTML = '';
-        } else {
             this.nextElementSibling.classList.add("tip");
             this.nextElementSibling.innerHTML = tip;
-        }
-    };
-
-    elem.onblur =function() {
-        this.nextElementSibling.classList.remove("tip");
-        this.nextElementSibling.innerHTML = '';
-    };
+        })
+        .bind("input", function() {
+            if (regExp.test(this.value)) {
+                this.nextElementSibling.classList.remove("tip");
+                this.nextElementSibling.innerHTML = '';
+            } else {
+                this.nextElementSibling.classList.add("tip");
+                this.nextElementSibling.innerHTML = tip;
+            }
+        })
+        .blur(function() {
+            this.nextElementSibling.classList.remove("tip");
+            this.nextElementSibling.innerHTML = '';
+        });
 }

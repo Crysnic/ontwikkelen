@@ -1,11 +1,7 @@
-window.addEventListener("load", function() {
-  
-  var form = document.forms[0];
-  var login = form.login;
-  var passwd = form.passwd;
+$( function() {
 
   // отправка данных на сервер
-  form.onsubmit = function() {
+  $('.login-form form').submit(function() {
     var data = getLoginData();
     
     if (data) {
@@ -21,35 +17,37 @@ window.addEventListener("load", function() {
                 return false;
             }
             
+            
             document.documentElement.innerHTML = this.responseText;
             
             // Начинаем работать с полученной страницей
-            var script = document.createElement('script');
-            script.src = "/js/user.js";
-
-            document.body.appendChild(script);
+            // подключаем к ней скрипты
+            $("<script>").attr("src", "/js/user.js").appendTo("head");
         }
         
         xhr.send(data);
     }
     
     return false;
-  };
+  });
   
  
   // Internal functions
   function getLoginData() {
-
-      if (login.value == "Логин" || !login.value) {
+      
+      var login = $(".login-form input[name='login']").val();
+      var passwd = $(".login-form input[name='passwd']").val();
+      
+      if (login == "Логин" || !login) {
           alert("Введите Логин");
           return false;
       }
-      if (passwd.value == "Пароль" || !login.value) {
+      if (passwd == "Пароль" || !login) {
           alert("Введите Пароль");
           return false;
       }
       
-      return JSON.stringify({"login": login.value, "passwd": passwd.value});
+      return JSON.stringify({"login": login, "passwd": passwd});
   }
   
   
