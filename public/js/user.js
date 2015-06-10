@@ -3,7 +3,7 @@ var socket = new WebSocket("ws://127.0.0.1:3000");
 $("#sendMessage textarea").focus();
 
 // send a picture on server
-$("form[name='chooseAvatar']").submit(function() {
+$("form[name='chooseAvatar']").submit(function( event ) {
     var formData = new FormData(form);
     
     var xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ $("form[name='chooseAvatar']").submit(function() {
       };
     
     xhr.send(formData);
-    return false;
+    event.preventDefault();
 });
 
 // press on a avatar
@@ -28,7 +28,38 @@ $(".avatar").click(function(event) {
 });
 
 // chat
-$("#sendMessage").submit(function() {   
+$("#sendMessage").bind({
+    "submit": sendMessageHandler,
+    "keydown": function(event) {
+        if (event.which == 13 && event.ctrlKey) {
+            var message = $("[name='message']").val();
+            $("[name='message']").val(message+"\n");
+        } else if (event.which == 13) {
+            sendMessageHandler.call(this, event);
+        }
+    }
+});
+
+socket.onmessage = function(event) {
+    if (isJson(event.data)) {
+        var resObj = JSON.parse(event.data);
+        showMessage(resObj.from, resObj.message);
+    }
+};
+
+
+//-- Internal functions --------------------------------------------------------
+function showMessage(from, message) {
+    message = message.replace(/\bhttp:\/\/[\w\d\/.]+\b/g,"<a href='$&'>$&</a>");
+    message = message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{30}/g, "$& ");
+    
+    var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
+      append("<td>"+message+"</td>");
+    $("#chatData table").append(messageElem);
+    $("#chatData")[0].scrollTop = $("#chatData")[0].scrollHeight;
+}
+
+function sendMessageHandler(event) {   
     var outgoingMessage = this.message.value;
     
     if (outgoingMessage) {
@@ -41,24 +72,7 @@ $("#sendMessage").submit(function() {
         $("#sendMessage textarea").focus();
     }
     
-    return false;
-  });
-
-socket.onmessage = function (event) {
-    if (isJson(event.data)) {
-        var resObj = JSON.parse(event.data);
-        showMessage(resObj.from, resObj.message);
-    }
-};
-
-
-//-- Internal functions --------------------------------------------------------
-function showMessage(from, message) {
-  var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
-      append("<td>"+message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{22}/g, "$& ")+"</td>");
-    $("#chatData table").append(messageElem);
-    $("#chatData")[0].scrollTop =
-                $("#chatData")[0].scrollHeight;
+    event.preventDefault();
 }
 
 function isJson(str) {

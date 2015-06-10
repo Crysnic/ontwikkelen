@@ -18,7 +18,7 @@
   float: right;
   margin-top: 15px;
   margin-right: 50px;
-  width: 570px;
+  width: 560px;
   text-align: left;
   border: 1px solid gray;
 }
@@ -43,6 +43,20 @@
 }
 .chat #chatData th {
   vertical-align: top;
+}
+
+/* Ссылки в чате */
+.chat a {
+  text-decoration: none;
+  color: #198d98;
+}
+
+.chat a:visited {
+  color: #198d98;
+}
+
+.chat a:hover {
+  color: #19469D;
 }
 
 /* Описание данных пользователя*/
