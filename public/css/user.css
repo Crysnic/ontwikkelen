@@ -48,15 +48,15 @@
 /* Ссылки в чате */
 .chat a {
   text-decoration: none;
-  color: #198d98;
+  color: #19469D;
 }
 
 .chat a:visited {
-  color: #198d98;
+  color: #19469D;
 }
 
 .chat a:hover {
-  color: #19469D;
+  color: #198d98;
 }
 
 /* Описание данных пользователя*/

@@ -23,8 +23,9 @@ $("form[name='chooseAvatar']").submit(function( event ) {
 
 // press on a avatar
 $(".avatar").click(function(event) {
-    if (event.target.tagName === "IMG")
+    if (event.target.tagName === "IMG") {
         $("form[name='chooseAvatar']").toggleClass('choosePicture');
+    }
 });
 
 // chat
@@ -47,10 +48,19 @@ socket.onmessage = function(event) {
     }
 };
 
+// clicking the link on chatData field
+$("#chatData").click(function(event) {
+    if (event.target.tagName == 'A') {
+        window.open( $(event.target).attr('href') );
+    }
+    
+    event.preventDefault();
+});
 
 //-- Internal functions --------------------------------------------------------
 function showMessage(from, message) {
-    message = message.replace(/\bhttp:\/\/[\w\d\/.]+\b/g,"<a href='$&'>$&</a>");
+    message = message.replace(/http[s]{0,1}:\/\/[\w\d\/.]+/g,
+        "<a href='$&'>$&</a>");
     message = message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{30}/g, "$& ");
     
     var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
