@@ -3,9 +3,9 @@ var socket = new WebSocket("ws://127.0.0.1:3000");
 $("#sendMessage textarea").focus();
 
 // send a picture on server
-$("form[name='chooseAvatar']").submit(function( event ) {
-    var formData = new FormData(form);
-    
+$("form.choosePicture").submit(function(event) {
+    var formData = new FormData(this);
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/user_avatar", true);
     
@@ -16,7 +16,7 @@ $("form[name='chooseAvatar']").submit(function( event ) {
             alert("Error " + xhr.status + " occurred uploading your file.<br \/>");
         }
       };
-    
+
     xhr.send(formData);
     event.preventDefault();
 });

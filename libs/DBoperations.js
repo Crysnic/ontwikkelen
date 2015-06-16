@@ -2,119 +2,79 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require("assert");
 var ObjectId = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/ontwikkelen";
+var User = require('../models/user').User;
+var crypto = require("crypto");
 
 var state;
 
-function addUser(userObj, res) { // Все функции работы с DB асинхронные
-    //поэтому использую callbacks
-    // Ищем пользователя по логину и если он есть...
-    findUser({'login': userObj.login}, function(data) {
+function addUser(userObj, res) {
+    // Ищем пользователя по логину
+    User.findOne({login: userObj.login}, function(err, user) {
+        assert.equal(err, null);
         
-        if (data.length > 0) {
+        if (user !== null) {
             res.end("Пользователь уже существует"); // ответ сервера
-            console.log("User is exist - ", data);
+            console.log("User is exist");
             return;
         }
         
         // Если пользователя нету то создаем его
-        MongoClient.connect(url, function(err, db) {
+        var newUser = User({
+            login: userObj.login,
+            name: userObj.name,
+            surname: userObj.surname,
+            date: userObj.date,
+            city: userObj.city,
+            email: userObj.email,
+            password: userObj.passw
+        });
+        
+        newUser.save(function(err) {
             assert.equal(err, null);
-
-            db.collection('users').insertOne({
-                "login": userObj.login,
-                "name": userObj.name,
-                "surname": userObj.surname,
-                "date": userObj.date,
-                "city": userObj.city,
-                "email": userObj.email,
-                "password": userObj.passw
-            }, function(err, result) {
-              assert.equal(err, null);
-              res.end("OK");
-              console.log("Inserted a",userObj.login,"into the users collection.");
-              db.close();
-            });
+            res.end("OK");
+            console.log("Inserted a",userObj.login,"into the users collection");
         });
         
     });    
 }
 function addUserAvatar(login, avatarPath) {
-    findUser({'login': login}, function(data) {
-
-        MongoClient.connect(url, function(err, db) {
+    User.update({login: login}, {"$set": {"avatar": avatarPath}},
+        function(err, result) {
             assert.equal(err, null);
-            db.collection('users').update({login: login},
-                {"$set": {"avatar": avatarPath}}, 
-                { upsert: true },
-                function(err, results) {
-                    console.log(results.result);
-                    db.close();
-                });
-        });
-        
-    });
+            console.log(result);
+        }
+    );
 }
 
 function checkUser(userObj, res) {
     
-    var query = {"login": userObj.login, "password": userObj.passwd};
-    
-    findUser(query, function(data) {
-        if (data.length == 0) {
-            // ответ сервера при отсутствии пользователя
+    var salt = User.findOne({login: userObj.login}, function(err, user) {
+        if (err) {
             res.status(401).send("Ошибка логина или пароля");
-        } else {
-            // ответ сервера если всё правильно
+            return;
+        }
+        console.log(userObj);
+        var passwd = 
+            crypto.createHmac('sha1', user.salt)
+            .update(userObj.passwd).digest('hex');
+    
+        if (passwd === user.hashedPassword) {
             res.render('user', {
-                user: data[0]
+                user: user
             });
         }
     });
     
 }
 
-function getUserPage(query, res) {
-    
-    findUser(query, function(data) {
-        res.render('test', {
-            user: data[0]
-        });
-    });
-    
-};
-
-function findUser(query, callback) {
-    
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(err, null);
-        
-        var collection = db.collection('users');
-        
-        collection.find(query).toArray(function(err, users) {
-            assert.equal(null, err);
-            db.close();
-            
-            callback(users);
-        });
-    });
-    
-}
-
 function removeUser(login) {
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(err, null);
-        
-        db.collection('users').deleteOne(
-            { "login": login }, function(err, results) {
-            console.log(results.result);
-            db.close();
-        });
+    User.remove({ login: login }, function(err) {
+        assert.equal(null, err);
+        console.log(login," removing was successful");
     });
-}
+};
 
 exports.addUser = addUser;
 exports.addUserAvatar = addUserAvatar;
 exports.checkUser = checkUser;
-exports.getUserPage = getUserPage;
-exports.findUser = findUser;
 exports.removeUser = removeUser;
