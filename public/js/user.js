@@ -59,9 +59,9 @@ $("#chatData").click(function(event) {
 
 //-- Internal functions --------------------------------------------------------
 function showMessage(from, message) {
+    message = message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{29}/g, "$& ");
     message = message.replace(/http[s]{0,1}:\/\/[\w\d\/.]+/g,
         "<a href='$&'>$&</a>");
-    message = message.replace(/[\w\d\Sà-ÿÀ-ß¸¨]{30}/g, "$& ");
     
     var messageElem = $("<tr></tr>").append("<th>"+from+": </th>").
       append("<td>"+message+"</td>");

@@ -3,13 +3,3 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.mainheader {
-  margin: 0;
-  border-radius: 5px 5px 0 0;
-  background-color: #282830;
-  color: #fff;
-  font-size: 18px;
-  padding: 20px;
-  text-align: center;
-  text-transform: uppercase;
-}

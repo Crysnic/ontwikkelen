@@ -7,7 +7,9 @@ html
     title= user.login
   body
     .user
-      h1.mainheader ontWiKKelen      
+      .mainmenu
+        h1 ontWiKKelen
+        .owner Вы
       .bodycontainer
         .chat
           #chatData
@@ -16,7 +18,7 @@ html
             table
               tr
                 td
-                  textarea(rows="6", cols="50", name="message")
+                  textarea(rows="6", cols="37", name="message")
                 td
                   input(type="submit", value="Отправить")
         .avatar
