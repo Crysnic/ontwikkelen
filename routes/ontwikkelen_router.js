@@ -21,13 +21,17 @@ router.get('/registration', function(req, res) {
 });
 
 // POST запросы
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res) { 
     res.set("Content-Type", "text/html; charset=utf-8");
     DBoperation.checkUser(req.body, res);
 });
 
 router.post('/registration', function(req, res) {   
     DBoperation.addUser(req.body, res);
+});
+
+router.post('/getUserProfile', function(req, res) {   
+    DBoperation.getUserProfile(req.body, res);
 });
 
 // статика

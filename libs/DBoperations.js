@@ -49,19 +49,21 @@ function addUserAvatar(login, avatarPath) {
 function checkUser(userObj, res) {
     
     var salt = User.findOne({login: userObj.login}, function(err, user) {
-        if (err) {
+        assert.equal(err, null);
+        if (user == null) {
             res.status(401).send("Ошибка логина или пароля");
             return;
         }
-        console.log(userObj);
-        var passwd = 
-            crypto.createHmac('sha1', user.salt)
+
+        var passwd = crypto.createHmac('sha1', user.salt)
             .update(userObj.passwd).digest('hex');
     
         if (passwd === user.hashedPassword) {
             res.render('user', {
                 user: user
             });
+        } else {
+           res.status(401).send("Ошибка логина или пароля");
         }
     });
     
@@ -74,7 +76,23 @@ function removeUser(login) {
     });
 };
 
+function getUserProfile(data, res) {
+    User.findOne({login: data.who}, function(err, user) {
+        assert.equal(err, null);
+        
+        var userProfileData = {
+            login: user.login,
+            name: user.name + " " + user.surname,
+            date: user.date,
+            city: user.city,
+            email: user.email
+        };
+        res.status(200).send(userProfileData);
+    });
+}
+
 exports.addUser = addUser;
 exports.addUserAvatar = addUserAvatar;
 exports.checkUser = checkUser;
 exports.removeUser = removeUser;
+exports.getUserProfile = getUserProfile;

@@ -1,6 +1,26 @@
 var socket = new WebSocket("ws://127.0.0.1:3000");
 
+// Save page owner data
+$(".user").data("user", {
+    title: $("title").html(),
+    userdata: $(".userdata").children().clone(),
+    avatar: $(".avatar img").attr("src")
+});
+
+// Focus on textarea
 $("#sendMessage textarea").focus();
+
+// main menu
+$(".mainmenu h1").click(function() {
+    window.location.assign('/');
+});
+$(".mainmenu .owner").click(function() {
+    var pageOwnerData = $(".user").data("user");
+    
+    $("title").html(pageOwnerData.title);
+    $(".avatar img").attr("src", pageOwnerData.avatar);
+    $(".userdata").children().remove().end().append(pageOwnerData.userdata);
+});
 
 // send a picture on server
 $("form.choosePicture").submit(function(event) {
@@ -48,13 +68,27 @@ socket.onmessage = function(event) {
     }
 };
 
-// clicking the link on chatData field
+// work with data in the chat
 $("#chatData").click(function(event) {
-    if (event.target.tagName == 'A') {
-        window.open( $(event.target).attr('href') );
+    if (event.target.tagName === 'A') {
+        window.open($(event.target).attr('href'));
+    } else if (event.target.tagName === 'TH') {            
+        
+        var xhr = new XMLHttpRequest();    
+        xhr.open("POST", '/getUserProfile', true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        
+        var who = $(event.target).html().match(/[\w\d_]+/)[0];
+        xhr.send(JSON.stringify({from: $("title").html(), who: who}));
+        
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+        };
+        
+        return false;
     }
-    
-    event.preventDefault();
 });
 
 //-- Internal functions --------------------------------------------------------

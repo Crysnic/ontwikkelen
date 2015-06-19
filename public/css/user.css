@@ -50,6 +50,17 @@
   margin-bottom: 5px;
   overflow: auto;
 }
+.chat #chatData td {
+  width: 300px;
+}
+.chat #chatData th {
+  vertical-align: top;
+  cursor: pointer;
+}
+.chat #chatData th:hover {
+  background-color: #198d98;
+  color: white;
+}
 #sendMessage tr, #sendMessage td {
   padding-left: 15px;
 }
@@ -60,12 +71,7 @@
 .chat textarea {
   overflow: auto;
 }
-.chat #chatData td {
-  width: 300px;
-}
-.chat #chatData th {
-  vertical-align: top;
-}
+
 
 /* Ссылки в чате */
 .chat a {
