@@ -1,16 +1,19 @@
-var socket = new WebSocket("ws://127.0.0.1:3000");
+var socket = new WebSocket("ws://192.168.0.101:3000");
 
 // Save page owner data
 $(".user").data("user", {
     title: $("title").html(),
-    userdata: $(".userdata").children().clone(),
+    name: $(".userName").html(),
+    date: $(".date").html(),
+    city: $(".city").html(),
+    email: $(".email").html(),
     avatar: $(".avatar img").attr("src")
 });
 
 // Focus on textarea
 $("#sendMessage textarea").focus();
 
-// main menu
+// Header main menu
 $(".mainmenu h1").click(function() {
     window.location.assign('/');
 });
@@ -19,7 +22,10 @@ $(".mainmenu .owner").click(function() {
     
     $("title").html(pageOwnerData.title);
     $(".avatar img").attr("src", pageOwnerData.avatar);
-    $(".userdata").children().remove().end().append(pageOwnerData.userdata);
+    $(".userName").html(pageOwnerData.name);
+    $(".date").html(pageOwnerData.date);
+    $(".city").html(pageOwnerData.city);
+    $(".email").html(pageOwnerData.email);
 });
 
 // send a picture on server
@@ -82,8 +88,13 @@ $("#chatData").click(function(event) {
         xhr.send(JSON.stringify({from: $("title").html(), who: who}));
         
         xhr.onload = function() {
-            if (xhr.status == 200) {
-                alert(xhr.responseText);
+            if (xhr.status === 200) {
+                var userProfileData = JSON.parse(xhr.responseText);
+                $('.userName').html(userProfileData.name);
+                $('tr.date td').html(userProfileData.date);
+                $('tr.city td').html(userProfileData.city);
+                $('tr.email td').html(userProfileData.email);
+                $('.avatar img').attr('src', userProfileData.avatar);
             }
         };
         

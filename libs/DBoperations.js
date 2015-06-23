@@ -85,7 +85,8 @@ function getUserProfile(data, res) {
             name: user.name + " " + user.surname,
             date: user.date,
             city: user.city,
-            email: user.email
+            email: user.email,
+            avatar: user.avatar
         };
         res.status(200).send(userProfileData);
     });
