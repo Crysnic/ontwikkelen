@@ -1,12 +1,12 @@
-var socket = new WebSocket("ws://192.168.0.101:3000");
+var socket = new WebSocket("ws://127.0.0.1:3000");
 
 // Save page owner data
 $(".user").data("user", {
     title: $("title").html(),
     name: $(".userName").html(),
-    date: $(".date").html(),
-    city: $(".city").html(),
-    email: $(".email").html(),
+    date: $(".date td").html(),
+    city: $(".city td").html(),
+    email: $(".email td").html(),
     avatar: $(".avatar img").attr("src")
 });
 
@@ -23,9 +23,9 @@ $(".mainmenu .owner").click(function() {
     $("title").html(pageOwnerData.title);
     $(".avatar img").attr("src", pageOwnerData.avatar);
     $(".userName").html(pageOwnerData.name);
-    $(".date").html(pageOwnerData.date);
-    $(".city").html(pageOwnerData.city);
-    $(".email").html(pageOwnerData.email);
+    $(".date td").html(pageOwnerData.date);
+    $(".city td").html(pageOwnerData.city);
+    $(".email td").html(pageOwnerData.email);
 });
 
 // send a picture on server
@@ -100,6 +100,41 @@ $("#chatData").click(function(event) {
         
         return false;
     }
+});
+
+// USER PROFILE DATA
+$('.editProfile').click(function() {
+
+    $('.userdata').addClass('edit');
+
+    $('.userName').html('<input type="text" value="'+$('.userName').html()+'">');
+
+    $('.userdata tr td').each(function() {
+        var editElement = $('<input>').attr({type: 'text', value: $(this).html()});
+        $(this).html(editElement);
+    });
+
+    $('.userdata .saveProfile').click(function(){
+        $('.userName').html( $('.userName input').val() );
+
+        $('.userdata tr td').each(function() {
+            $(this).html( $(this).children().first().val() );
+        });
+        $('.userName').show();
+        $('.userdata').removeClass('edit');
+    });
+
+    $('.userdata .cancelEditProfile').click(function(){
+        var profileData = $('.user').data('user');
+        
+        $('.userName').html(profileData.name);
+        $('.city td').html(profileData.city);
+        $('.date td').html(profileData.date);
+        $('.email td').html(profileData.email);
+
+        $('.userName').show();
+        $('.userdata').removeClass('edit');
+    });
 });
 
 //-- Internal functions --------------------------------------------------------

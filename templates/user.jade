@@ -29,6 +29,7 @@ html
             p
               input(type="submit" value="Отправить")
         .userdata
+          div.editProfile
           p.userName= user.name + " " + user.surname
           table
             tr.date
@@ -40,3 +41,5 @@ html
             tr.email
               th E-mail
               td= user.email
+          button.saveProfile(type="button") Save
+          button.cancelEditProfile(type="button") Cancel
