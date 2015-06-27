@@ -19,13 +19,14 @@ $(".mainmenu h1").click(function() {
 });
 $(".mainmenu .owner").click(function() {
     var pageOwnerData = $(".user").data("user");
+    $('.userdata').removeClass('edit');
     
     $("title").html(pageOwnerData.title);
     $(".avatar img").attr("src", pageOwnerData.avatar);
     $(".userName").html(pageOwnerData.name);
-    $(".date td").html(pageOwnerData.date);
-    $(".city td").html(pageOwnerData.city);
-    $(".email td").html(pageOwnerData.email);
+    $(".userInformation .date td").html(pageOwnerData.date);
+    $(".userInformation .city td").html(pageOwnerData.city);
+    $(".userInformation .email td").html(pageOwnerData.email);
 });
 
 // send a picture on server
@@ -90,10 +91,11 @@ $("#chatData").click(function(event) {
         xhr.onload = function() {
             if (xhr.status === 200) {
                 var userProfileData = JSON.parse(xhr.responseText);
+                $('.userdata').removeClass('edit');
                 $('.userName').html(userProfileData.name);
-                $('tr.date td').html(userProfileData.date);
-                $('tr.city td').html(userProfileData.city);
-                $('tr.email td').html(userProfileData.email);
+                $('.userInformation tr.date td').html(userProfileData.date);
+                $('.userInformation tr.city td').html(userProfileData.city);
+                $('.userInformation tr.email td').html(userProfileData.email);
                 $('.avatar img').attr('src', userProfileData.avatar);
             }
         };
@@ -105,35 +107,50 @@ $("#chatData").click(function(event) {
 // USER PROFILE DATA
 $('.editProfile').click(function() {
 
-    $('.userdata').addClass('edit');
-
-    $('.userName').html('<input type="text" value="'+$('.userName').html()+'">');
-
-    $('.userdata tr td').each(function() {
-        var editElement = $('<input>').attr({type: 'text', value: $(this).html()});
-        $(this).html(editElement);
-    });
-
-    $('.userdata .saveProfile').click(function(){
-        $('.userName').html( $('.userName input').val() );
-
-        $('.userdata tr td').each(function() {
-            $(this).html( $(this).children().first().val() );
-        });
-        $('.userName').show();
-        $('.userdata').removeClass('edit');
-    });
-
-    $('.userdata .cancelEditProfile').click(function(){
-        var profileData = $('.user').data('user');
+    $('.userdata').toggleClass('edit');
+    
+    $('.cancelEditProfile').click(function() {
+        var userdata = $(".user").data("user");
+        var fullName = userdata.name;
+        $(".editData .name input").val(fullName.match(/^[a-zA-Zа-яА-ЯёЁ]+/));
+        $(".editData .surname input").val(fullName.match(/[a-zA-Zа-яА-ЯёЁ]+$/));
+        $(".editData .date input").val(userdata.date);
+        $(".editData .city input").val(userdata.city);
+        $(".editData .email input").val(userdata.email);
         
-        $('.userName').html(profileData.name);
-        $('.city td').html(profileData.city);
-        $('.date td').html(profileData.date);
-        $('.email td').html(profileData.email);
-
-        $('.userName').show();
         $('.userdata').removeClass('edit');
+    });
+    
+    $('.saveProfile').click(function() {
+        var xhr = new XMLHttpRequest();    
+        xhr.open("POST", '/updateUserProfile', true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        
+        xhr.send(JSON.stringify({
+            login: $("title").html(), 
+            name: $(".editData .name input").val(),
+            surname: $(".editData .surname input").val(),
+            date: $(".editData .date input").val(),
+            city: $(".editData .city input").val(),
+            email: $(".editData .email input").val()
+        }));
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var userProfileData = JSON.parse(xhr.responseText);
+                var fullname = userProfileData.name+" "+userProfileData.surname;
+                $(".userName").html(fullname);
+                $(".userInformation .date td").html(userProfileData.date);
+                $(".userInformation .city td").html(userProfileData.city);
+                $(".userInformation .email td").html(userProfileData.email);
+                $('.userdata').removeClass('edit');
+            } else {
+                alert('Error: something was wrong');
+                $('.cancelEditProfile').click();
+            }
+        };
+        
+        return false;
     });
 });
 

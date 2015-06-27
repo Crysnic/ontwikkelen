@@ -92,8 +92,19 @@ function getUserProfile(data, res) {
     });
 }
 
+function updateUserProfile(data, res) {
+    User.update({login: data.login}, {"$set": data},
+        function(err, result) {
+            assert.equal(err, null);
+            console.log(result);
+            res.status(200).send(data);
+        }
+    );
+}
+
 exports.addUser = addUser;
 exports.addUserAvatar = addUserAvatar;
 exports.checkUser = checkUser;
 exports.removeUser = removeUser;
 exports.getUserProfile = getUserProfile;
+exports.updateUserProfile = updateUserProfile;

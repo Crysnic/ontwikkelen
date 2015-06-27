@@ -34,6 +34,10 @@ router.post('/getUserProfile', function(req, res) {
     DBoperation.getUserProfile(req.body, res);
 });
 
+router.post('/updateUserProfile', function(req, res) {   
+    DBoperation.updateUserProfile(req.body, res);
+});
+
 // статика
 router.use( express.static(options.root) );
 

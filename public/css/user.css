@@ -126,6 +126,11 @@
   clear: both;
 }
 
+.userdata .editData {
+  display: none;
+}
+
+/* Кнопка редактирования профиля */
 .userdata .editProfile {
 	float: right;
     width: 25px;
@@ -140,6 +145,7 @@
   background-color: #bbbbbb;
 }
 
+/* Кнопки сохранения и отмены редактирования */
 .saveProfile, .cancelEditProfile {
   float: right;
   display: none;
@@ -147,6 +153,16 @@
   margin-top: 10px;
 }
 
-.userdata.edit  .saveProfile, .userdata.edit  .cancelEditProfile {
-	display: block;
+/* Редактирование профиля */
+.userdata.edit .userInformation {
+  display: none;
+}
+.userdata.edit .editData{
+  display: block;
+}
+.userdata.edit .userName {
+  display: none;
+}
+.userdata.edit .saveProfile, .userdata.edit .cancelEditProfile {
+  display: block;
 }

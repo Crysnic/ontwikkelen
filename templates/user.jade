@@ -31,7 +31,7 @@ html
         .userdata
           div.editProfile
           p.userName= user.name + " " + user.surname
-          table
+          table.userInformation
             tr.date
               th День рождения
               td= user.date
@@ -41,5 +41,30 @@ html
             tr.email
               th E-mail
               td= user.email
-          button.saveProfile(type="button") Save
-          button.cancelEditProfile(type="button") Cancel
+          table.editData
+            tr.name
+              th Имя
+              td
+                input(type="text", value="#{user.name}")
+            tr.surname
+              th Фамилия
+              td
+                input(type="text", value="#{user.surname}")
+            tr.date
+              th День рождения
+              td
+                input(type="text", value="#{user.date}")
+            tr.city
+              th Место проживания
+              td
+                  input(type="text", value="#{user.city}")
+            tr.email
+              th E-mail
+              td
+                  input(type="text", value="#{user.email}")
+            tr
+              td
+              td
+                button.cancelEditProfile(type="button") Cancel
+                button.saveProfile(type="button") Save
+                
