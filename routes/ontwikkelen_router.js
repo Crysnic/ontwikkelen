@@ -21,7 +21,8 @@ router.get('/registration', function(req, res) {
 });
 
 // POST запросы
-router.post('/login', function(req, res) { 
+router.post('/login', function(req, res) {
+    console.log(req.body);
     res.set("Content-Type", "text/html; charset=utf-8");
     DBoperation.checkUser(req.body, res);
 });

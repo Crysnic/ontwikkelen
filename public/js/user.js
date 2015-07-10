@@ -32,19 +32,20 @@ $(".mainmenu .owner").click(function() {
 // send a picture on server
 $("form.choosePicture").submit(function(event) {
     var formData = new FormData(this);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/user_avatar", true);
     
-    xhr.onload = function() {
-        if (xhr.status == 200) {
-            alert("Updated to " + xhr.responseText +"! Please restart this page");
-        } else {
-            alert("Error " + xhr.status + " occurred uploading your file.<br \/>");
-        }
-      };
-
-    xhr.send(formData);
+    $.ajax({
+      url: "/user_avatar",
+      data: formData,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+        $("form[name='chooseAvatar']").addClass('choosePicture');
+        location.reload();
+        alert("Updated to " + data +"! Page will be restart");
+      }
+    });
+    
     event.preventDefault();
 });
 
@@ -79,26 +80,23 @@ socket.onmessage = function(event) {
 $("#chatData").click(function(event) {
     if (event.target.tagName === 'A') {
         window.open($(event.target).attr('href'));
-    } else if (event.target.tagName === 'TH') {            
-        
-        var xhr = new XMLHttpRequest();    
-        xhr.open("POST", '/getUserProfile', true);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        
+    } else if (event.target.tagName === 'TH') {
+   
         var who = $(event.target).html().match(/[\w\d_]+/)[0];
-        xhr.send(JSON.stringify({from: $("title").html(), who: who}));
         
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var userProfileData = JSON.parse(xhr.responseText);
+        $.post(
+            '/getUserProfile',
+            {from: $("title").html(), who: who},
+            function(response) {
                 $('.userdata').removeClass('edit');
-                $('.userName').html(userProfileData.name);
-                $('.userInformation tr.date td').html(userProfileData.date);
-                $('.userInformation tr.city td').html(userProfileData.city);
-                $('.userInformation tr.email td').html(userProfileData.email);
-                $('.avatar img').attr('src', userProfileData.avatar);
-            }
-        };
+                $('.userName').html(response.name);
+                $('.userInformation tr.date td').html(response.date);
+                $('.userInformation tr.city td').html(response.city);
+                $('.userInformation tr.email td').html(response.email);
+                $('.avatar img').attr('src', response.avatar);
+            },
+            "json"
+        );
         
         return false;
     }
@@ -122,33 +120,27 @@ $('.editProfile').click(function() {
     });
     
     $('.saveProfile').click(function() {
-        var xhr = new XMLHttpRequest();    
-        xhr.open("POST", '/updateUserProfile', true);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         
-        xhr.send(JSON.stringify({
-            login: $("title").html(), 
-            name: $(".editData .name input").val(),
-            surname: $(".editData .surname input").val(),
-            date: $(".editData .date input").val(),
-            city: $(".editData .city input").val(),
-            email: $(".editData .email input").val()
-        }));
-        
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var userProfileData = JSON.parse(xhr.responseText);
-                var fullname = userProfileData.name+" "+userProfileData.surname;
+        $.post(
+            '/updateUserProfile',
+            {
+                login: $("title").html(), 
+                name: $(".editData .name input").val(),
+                surname: $(".editData .surname input").val(),
+                date: $(".editData .date input").val(),
+                city: $(".editData .city input").val(),
+                email: $(".editData .email input").val()
+            },
+            function(response) {
+                var fullname = response.name+" "+response.surname;
                 $(".userName").html(fullname);
-                $(".userInformation .date td").html(userProfileData.date);
-                $(".userInformation .city td").html(userProfileData.city);
-                $(".userInformation .email td").html(userProfileData.email);
+                $(".userInformation .date td").html(response.date);
+                $(".userInformation .city td").html(response.city);
+                $(".userInformation .email td").html(response.email);
                 $('.userdata').removeClass('edit');
-            } else {
-                alert('Error: something was wrong');
-                $('.cancelEditProfile').click();
-            }
-        };
+            },
+            "json"
+        );
         
         return false;
     });
